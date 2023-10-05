@@ -24,10 +24,15 @@ int main() {
 
     Texture gameScreenTexture;
     if (!gameScreenTexture.loadFromFile("gameScreenImage.png")) {
-        // 게임 진행 화면 이미지를 로드하는 데 실패한 경우 예외 처리를 추가하세요.
         return 1;
     }
     Sprite gameScreenSprite(gameScreenTexture);
+
+    Texture infoScreenTexture;
+    if (!infoScreenTexture.loadFromFile("infoScreenImage.png")) {
+        return 1;
+    }
+    Sprite infoScreenSprite(infoScreenTexture);
 
     while (window.isOpen()) {
         Event event;
@@ -37,6 +42,12 @@ int main() {
             }
             else if (event.type == Event::KeyPressed) {
                 if (event.key.code == Keyboard::Space && gameState == StartScreen) {
+                    gameState = GameScreen;
+                }
+                else if (event.key.code == Keyboard::A && gameState == StartScreen) {
+                    gameState = InfoScreen;
+                }
+                else if (event.key.code == Keyboard::Space && gameState == InfoScreen) {
                     gameState = GameScreen;
                 }
             }
@@ -50,7 +61,12 @@ int main() {
         else if (gameState == GameScreen) {
             window.draw(gameScreenSprite);
         }
+        else if (gameState == InfoScreen) {
+            window.draw(infoScreenSprite);
+        }
 
         window.display();
     }
+
+    return 0;
 }
