@@ -11,5 +11,6 @@ public:
 
     GameObject(Texture& texture, float x, float y);
     void draw(RenderWindow& window);
+    void move(float offSetX, float offSetY);
     bool isColliding(const GameObject& other);
 };

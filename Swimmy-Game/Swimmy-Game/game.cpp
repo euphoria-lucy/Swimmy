@@ -43,16 +43,19 @@ int main() {
     while (window.isOpen()) {
         Event event;
         while (window.pollEvent(event)) {
-            if (event.type == Event::Closed) {
+            if (event.type == Event::Closed) { // 창을 닫으면 종료
                 window.close();
             }
             else if (event.type == Event::KeyPressed) {
+                // 게임시작화면에서 스페이스바를 누름 -> 게임진행화면으로 이동
                 if (event.key.code == Keyboard::Space && gameState == StartScreen) {
                     gameState = GameScreen;
                 }
+                // 게임시작화면에서 A키를 누름 -> 게임설명화면으로 이동
                 else if (event.key.code == Keyboard::A && gameState == StartScreen) {
                     gameState = InfoScreen;
                 }
+                // 게임설명화면에서 스페이스바를 누름 -> 게임진행화면으로 이동
                 else if (event.key.code == Keyboard::Space && gameState == InfoScreen) {
                     gameState = GameScreen;
                 }
