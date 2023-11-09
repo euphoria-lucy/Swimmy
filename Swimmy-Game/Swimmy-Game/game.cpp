@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "gameObject.h"
+#include "player.h"
 
 using namespace sf;
 
@@ -16,29 +17,34 @@ int main() {
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "Swimmy");
     GameState gameState = StartScreen;
 
+    // 게임시작화면 이미지 삽입
     Texture startScreenTexture;
     if (!startScreenTexture.loadFromFile("startScreenImage.png")) {
         return 1;
     }
     Sprite startScreenSprite(startScreenTexture);
 
+    // 게임진행화면 이미지 삽입
     Texture gameScreenTexture;
     if (!gameScreenTexture.loadFromFile("gameScreenImage.png")) {
         return 1;
     }
     Sprite gameScreenSprite(gameScreenTexture);
 
+    // 게임설명화면 이미지 삽입
     Texture infoScreenTexture;
     if (!infoScreenTexture.loadFromFile("infoScreenImage.png")) {
         return 1;
     }
     Sprite infoScreenSprite(infoScreenTexture);
 
-    /* Texture playerTexture;  // player.png 이미지를 로드하기 위한 텍스처
+    // Player 이미지 삽입
+    Texture playerTexture;
     if (!playerTexture.loadFromFile("player.png")) {
         return 1;
     }
-    GameObject player(playerTexture, 100, 100); */
+    Player player(playerTexture, 30, 30); // Player 객체 생성
+    player.sprite.setScale(0.4f, 0.4f);
 
     while (window.isOpen()) {
         Event event;
@@ -62,6 +68,10 @@ int main() {
             }
         }
 
+        if (gameState == GameScreen) {
+            player.update(Vector2u(WIDTH, HEIGHT));
+        }
+
         window.clear();
 
         if (gameState == StartScreen) {
@@ -69,7 +79,7 @@ int main() {
         }
         else if (gameState == GameScreen) {
             window.draw(gameScreenSprite);
-            // window.draw(player.sprite);
+            window.draw(player.sprite);
         }
         else if (gameState == InfoScreen) {
             window.draw(infoScreenSprite);

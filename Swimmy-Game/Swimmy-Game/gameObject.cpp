@@ -13,9 +13,35 @@ void GameObject::draw(RenderWindow& window) {
 }
 
 // 게임 객체의 위치 이동을 하는 함수
-void GameObject::move(float offsetX, float offsetY) {
+/* void GameObject::move(float offsetX, float offsetY) {
     position.x += offsetX;
     position.y += offsetY;
+    sprite.setPosition(position);
+} */
+
+void GameObject::move(float offsetX, float offsetY, const Vector2u& windowSize) {
+    // 새 위치 계산
+    float newX = position.x + offsetX;
+    float newY = position.y + offsetY;
+
+    // 객체가 바운더리를 넘지 않도록
+    if (newX < 0) {
+        newX = 0;
+    }
+    else if (newX + sprite.getGlobalBounds().width > windowSize.x) {
+        newX = windowSize.x - sprite.getGlobalBounds().width;
+    }
+
+    if (newY < 0) {
+        newY = 0;
+    }
+    else if (newY + sprite.getGlobalBounds().height > windowSize.y) {
+        newY = windowSize.y - sprite.getGlobalBounds().height;
+    }
+
+    position.x = newX;
+    position.y = newY;
+
     sprite.setPosition(position);
 }
 
