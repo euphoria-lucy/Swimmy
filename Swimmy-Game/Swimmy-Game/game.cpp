@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "gameObject.h"
 
 using namespace sf;
 
@@ -17,7 +18,6 @@ int main() {
 
     Texture startScreenTexture;
     if (!startScreenTexture.loadFromFile("startScreenImage.png")) {
-        // 이미지를 로드하는 데 실패한 경우 예외 처리를 추가하세요.
         return 1;
     }
     Sprite startScreenSprite(startScreenTexture);
@@ -33,6 +33,12 @@ int main() {
         return 1;
     }
     Sprite infoScreenSprite(infoScreenTexture);
+
+    /* Texture playerTexture;  // player.png 이미지를 로드하기 위한 텍스처
+    if (!playerTexture.loadFromFile("player.png")) {
+        return 1;
+    }
+    GameObject player(playerTexture, 100, 100); */
 
     while (window.isOpen()) {
         Event event;
@@ -60,6 +66,7 @@ int main() {
         }
         else if (gameState == GameScreen) {
             window.draw(gameScreenSprite);
+            // window.draw(player.sprite);
         }
         else if (gameState == InfoScreen) {
             window.draw(infoScreenSprite);
