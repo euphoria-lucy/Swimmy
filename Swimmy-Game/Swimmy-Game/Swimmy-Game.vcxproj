@@ -131,7 +131,6 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="turtle.cpp" />
   </ItemGroup>
   <ItemGroup>

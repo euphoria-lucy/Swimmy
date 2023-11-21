@@ -1,6 +1,6 @@
 #include "gameObject.h"
 
-// 게임 객체의 위치와 텍스처(이미지)를 설정
+// 생성자: 객체의 이미지 설정, 객체의 x좌표 설정, 객체의 y좌표 설정
 GameObject::GameObject(Texture& texture, float x, float y) {
     position = Vector2f(x, y);
     sprite.setTexture(texture);
@@ -11,13 +11,6 @@ GameObject::GameObject(Texture& texture, float x, float y) {
 void GameObject::draw(RenderWindow& window) {
     window.draw(sprite);
 }
-
-// 게임 객체의 위치 이동을 하는 함수
-/* void GameObject::move(float offsetX, float offsetY) {
-    position.x += offsetX;
-    position.y += offsetY;
-    sprite.setPosition(position);
-} */
 
 void GameObject::move(float offsetX, float offsetY, const Vector2u& windowSize) {
     // 새 위치 계산

@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include "gameObject.h"
 #include "player.h"
+#include "fish.h"
+#include <ctime>
 
 using namespace sf;
 
-const int WIDTH = 1000;
-const int HEIGHT = 700;
+const int WIDTH = 1000; // 화면의 가로 크기
+const int HEIGHT = 700; // 화면의 세로 크기
 
 enum GameState {  // 게임 상태를 나타내는 열거형
     StartScreen,  // 게임 시작 화면
@@ -44,7 +46,15 @@ int main() {
         return 1;
     }
     Player player(playerTexture, 30, 30); // Player 객체 생성
-    player.sprite.setScale(0.4f, 0.4f);
+    player.sprite.setScale(0.3f, 0.3f);
+
+
+    Texture fishTexture;
+    if (!fishTexture.loadFromFile("fish.png")) {
+        return 1;
+    }
+    Fish fish(fishTexture, 600, HEIGHT);
+    fish.sprite.setScale(0.4f, 0.4f);
 
     while (window.isOpen()) {
         Event event;
@@ -69,7 +79,18 @@ int main() {
         }
 
         if (gameState == GameScreen) {
+
+            // 플레이어 객체 업데이트
             player.update(Vector2u(WIDTH, HEIGHT));
+
+            // 플레이어와 물고기의 충돌 확인
+            if (fish.checkCollisionWithPlayer(player)) {
+                // 충돌 시 플레이어의 점수를 증가시키는 코드 추가
+                err() << "Player scored!\n";
+            }
+
+            // 물고기 업데이트
+            fish.update();
         }
 
         window.clear();
@@ -80,6 +101,7 @@ int main() {
         else if (gameState == GameScreen) {
             window.draw(gameScreenSprite);
             window.draw(player.sprite);
+            window.draw(fish.sprite);
         }
         else if (gameState == InfoScreen) {
             window.draw(infoScreenSprite);
