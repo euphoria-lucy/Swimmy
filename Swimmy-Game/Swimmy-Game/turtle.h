@@ -1,9 +1,17 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
-#include "gameObject.h"
 
-class Turtle : public GameObject {
+class Turtle {
 public:
-    Turtle(Texture& texture, float x, float y); // »ý¼ºÀÚ
+    Turtle(sf::RenderWindow& window);
+    void move();
+    void draw();
+    sf::FloatRect getGlobalBounds() const;
+    void resetPosition();
+
+private:
+    sf::RenderWindow& window;
+    sf::Texture texture;
+    sf::Sprite sprite;
+    sf::Vector2f velocity;
 };
