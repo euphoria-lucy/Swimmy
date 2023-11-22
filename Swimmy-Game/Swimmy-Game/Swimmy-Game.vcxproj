@@ -129,13 +129,11 @@
   <ItemGroup>
     <ClCompile Include="fish.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="turtle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fish.h" />
-    <ClInclude Include="gameObject.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="turtle.h" />
   </ItemGroup>
